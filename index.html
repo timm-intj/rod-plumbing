@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silvio's Plumbing | Master Plumber in Pflugerville & Austin, TX</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Expressive Typography: Plus Jakarta Sans + Instrument Serif -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        silvio: {
+                            blue: '#0D3B7A',
+                            lightBlue: '#EFF6FF',
+                            red: '#C81E1E',
+                            redLight: '#FEF2F2',
+                            slate: '#0F172A'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Instrument Serif"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Truck Wrap Chevron Accent Motif */
+        .truck-stripe {
+            background: repeating-linear-gradient(
+                135deg,
+                #0D3B7A,
+                #0D3B7A 10px,
+                #ffffff 10px,
+                #ffffff 16px,
+                #C81E1E 16px,
+                #C81E1E 26px
+            );
+        }
+
+        /* Subtle Architectural Grid on White Canvas */
+        .white-grid-bg {
+            background-color: #ffffff;
+            background-image: radial-gradient(#CBD5E1 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+
+        /* Living HTML Micro-Animations (100% CSS-Driven, Never Invisible) */
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marquee 26s linear infinite;
+        }
+
+        @keyframes ring-wiggle {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            15% { transform: rotate(-18deg) scale(1.15); }
+            30% { transform: rotate(16deg) scale(1.15); }
+            45% { transform: rotate(-12deg) scale(1.12); }
+            60% { transform: rotate(10deg) scale(1.05); }
+            75% { transform: rotate(0deg) scale(1); }
+        }
+        .icon-ring {
+            display: inline-block;
+            animation: ring-wiggle 2s infinite ease-in-out;
+        }
+
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-4px); }
+        }
+        .icon-float {
+            display: inline-block;
+            animation: float-slow 3s infinite ease-in-out;
+        }
+
+        @keyframes pulse-border {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(200, 30, 30, 0.25); }
+            50% { box-shadow: 0 0 0 8px rgba(200, 30, 30, 0); }
+        }
+        .live-pulse-card {
+            animation: pulse-border 2.5s infinite;
+        }
+
+        @keyframes shimmerSweep {
+            0% { transform: translateX(-100%) skewX(-15deg); }
+            100% { transform: translateX(200%) skewX(-15deg); }
+        }
+        .btn-shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-shimmer::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 45%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.35), transparent);
+            animation: shimmerSweep 3s infinite;
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-900 font-sans antialiased pb-20 md:pb-0">
+
+    <!-- TOP LIVE DISPATCH & BILINGUAL BAR -->
+    <div class="bg-slate-50 text-slate-700 text-xs py-2 px-4 border-b border-slate-200/80">
+        <div class="max-w-7xl mx-auto flex justify-between items-center gap-2">
+            <div class="flex items-center space-x-2">
+                <span class="relative flex h-2.5 w-2.5">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-600"></span>
+                </span>
+                <span class="font-semibold text-slate-800" data-en="Pflugerville & Austin Crew Active" data-es="Equipo Activo en Pflugerville y Austin">Pflugerville & Austin Crew Active</span>
+            </div>
+            <button onclick="toggleLanguage()" class="bg-white hover:bg-blue-50 text-silvio-blue px-3 py-1 rounded-full font-bold transition flex items-center space-x-1 border border-slate-200 shadow-sm text-[11px]">
+                <span>🌐</span>
+                <span id="langText">Español (ES)</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- STICKY NAVIGATION HEADER -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2">
+            
+            <!-- Brand Crest & Expressive Title -->
+            <a href="#" class="flex items-center space-x-2.5 group shrink-0">
+                <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-silvio-blue border-2 border-silvio-red flex flex-col items-center justify-center shadow-sm group-hover:rotate-3 transition">
+                    <span class="text-[7px] sm:text-[8px] font-extrabold tracking-widest text-amber-300 leading-none">MASTER</span>
+                    <span class="font-extrabold text-white text-[10px] sm:text-xs tracking-tight leading-none my-0.5">SILVIO'S</span>
+                    <span class="text-[6px] sm:text-[7px] font-bold bg-silvio-red text-white px-1 rounded-sm uppercase">Plumbing</span>
+                </div>
+                <div>
+                    <span class="font-extrabold text-base sm:text-xl tracking-tight text-silvio-blue block leading-none">Silvio's Plumbing</span>
+                    <span class="text-[10px] font-semibold text-slate-500 block mt-0.5" data-en="Master Plumber • Austin, TX" data-es="Maestro Plomero • Austin, TX">Master Plumber • Austin, TX</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden lg:flex items-center space-x-7 font-semibold text-sm text-slate-600">
+                <a href="#services" class="hover:text-silvio-blue transition">Services</a>
+                <a href="#remodels" class="hover:text-silvio-blue transition">Remodels & Concrete</a>
+                <a href="#about" class="hover:text-silvio-blue transition">Master Standard</a>
+                <a href="#reviews" class="hover:text-silvio-blue transition">Reviews</a>
+                <a href="#contact" class="hover:text-silvio-blue transition">Contact</a>
+            </nav>
+
+            <!-- Compact Single-Line Call CTA with Bouncing Phone -->
+            <a href="tel:5125545855" class="btn-shimmer bg-silvio-red hover:bg-red-700 text-white font-bold text-xs sm:text-sm px-3.5 sm:px-5 py-2.5 sm:py-3 rounded-full shadow-md shadow-red-600/20 flex items-center space-x-1.5 whitespace-nowrap shrink-0 transition active:scale-95">
+                <span class="icon-ring">📞</span>
+                <span>(512) 554-5855</span>
+            </a>
+        </div>
+        <div class="h-1 w-full truck-stripe"></div>
+    </header>
+
+    <!-- ==========================================
+         SECTION 1: WHITE-DOMINANT EXPRESSIVE HERO & LIVE TRIAGE
+         ========================================== -->
+    <section class="white-grid-bg pt-8 pb-14 lg:py-20 relative overflow-hidden border-b border-slate-200/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-12 gap-10 items-center">
+                
+                <!-- Left Column -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center space-x-2 bg-blue-50 border border-blue-200/80 rounded-full px-3.5 py-1.5 text-xs font-bold text-silvio-blue shadow-sm">
+                        <span>🛡️</span>
+                        <span data-en="Licensed & Insured Master Plumber • Hablamos Español" data-es="Maestro Plomero Licenciado y Asegurado • Inglés y Español">Licensed & Insured Master Plumber • Hablamos Español</span>
+                    </div>
+
+                    <h1 class="font-extrabold text-4xl sm:text-6xl text-slate-900 leading-[1.06] tracking-tight">
+                        <span data-en="Quality Plumbing," data-es="Plomería de Calidad,">Quality Plumbing,</span><br>
+                        <span class="font-serif italic font-normal text-5xl sm:text-7xl text-silvio-red pr-1" data-en="Done Right" data-es="Bien Hecha">Done Right</span>
+                        <span class="text-silvio-blue" data-en="the First Time." data-es="a la Primera.">the First Time.</span>
+                    </h1>
+
+                    <p class="text-slate-600 text-base sm:text-lg leading-relaxed max-w-2xl" data-en="From emergency flooded basements and 45-foot under-slab sewer tunnels to turnkey kitchen, bath, and concrete remodels—Silvio's Plumbing delivers Master-level craftsmanship across Pflugerville and Greater Austin." data-es="Desde sótanos inundados y túneles de drenaje de 45 pies bajo losa hasta remodelaciones completas de cocinas, baños y concreto—Silvio's Plumbing brinda calidad de Maestro Plomero en Pflugerville y Austin.">
+                        From emergency flooded basements and 45-foot under-slab sewer tunnels to turnkey kitchen, bath, and concrete remodels—Silvio's Plumbing delivers Master-level craftsmanship across Pflugerville and Greater Austin.
+                    </p>
+
+                    <!-- Interactive Trust Pills -->
+                    <div class="grid grid-cols-3 gap-2.5 sm:gap-4 pt-1">
+                        <div class="bg-white border border-slate-200 rounded-2xl p-3.5 shadow-sm hover:border-silvio-blue transition">
+                            <div class="w-9 h-9 rounded-xl bg-blue-50 text-silvio-blue flex items-center justify-center mb-2 text-lg icon-float">🏅</div>
+                            <div class="font-bold text-xs sm:text-sm text-slate-900" data-en="Licensed Master" data-es="Maestro Licenciado">Licensed Master</div>
+                            <div class="text-[11px] text-slate-500 mt-0.5">100% Insured Crew</div>
+                        </div>
+
+                        <div class="bg-white border border-slate-200 rounded-2xl p-3.5 shadow-sm hover:border-silvio-red transition">
+                            <div class="w-9 h-9 rounded-xl bg-red-50 text-silvio-red flex items-center justify-center mb-2 text-lg icon-float">💲</div>
+                            <div class="font-bold text-xs sm:text-sm text-slate-900" data-en="Honest Pricing" data-es="Precio Honesto">Honest Pricing</div>
+                            <div class="text-[11px] text-slate-500 mt-0.5">Best Price Guarantee</div>
+                        </div>
+
+                        <div class="bg-white border border-slate-200 rounded-2xl p-3.5 shadow-sm hover:border-silvio-blue transition">
+                            <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-2 text-lg icon-float">📍</div>
+                            <div class="font-bold text-xs sm:text-sm text-slate-900" data-en="Locally Owned" data-es="Negocio Local">Locally Owned</div>
+                            <div class="text-[11px] text-slate-500 mt-0.5">Pflugerville, TX</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Interactive Live Triage & Diagnostic Card -->
+                <div class="lg:col-span-5">
+                    <div class="bg-white rounded-3xl shadow-xl border-2 border-slate-200 overflow-hidden">
+                        
+                        <div class="bg-gradient-to-r from-silvio-blue to-blue-900 text-white p-5 flex items-center justify-between">
+                            <div>
+                                <div class="flex items-center space-x-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+                                    <span class="text-[10px] font-bold uppercase tracking-widest text-amber-300">Interactive Dispatch</span>
+                                </div>
+                                <h2 class="font-extrabold text-xl mt-0.5">Instant Estimate & Triage</h2>
+                            </div>
+                            <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-lg">⚡</div>
+                        </div>
+
+                        <div class="p-5 sm:p-6 space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">1. Tap Your Plumbing or Remodel Need:</label>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <button type="button" onclick="selectSymptom(this, 'Emergency Leak / Flood / Clog', '🚨 Priority 1–2 Hr Dispatch • Hydro-Jet & Leak Radar Ready', 'red')" class="sym-btn border-2 border-silvio-red bg-red-50/70 text-slate-900 font-bold text-xs p-2.5 rounded-xl text-left flex items-center space-x-2 transition">
+                                        <span class="icon-ring">🚨</span>
+                                        <span>Leak / Flood / Clog</span>
+                                    </button>
+                                    <button type="button" onclick="selectSymptom(this, 'Main Sewer / Under-Slab Tunneling', '🛠️ Heavy Crew • Up to 45ft Under-House Tunneling Without Floor Demo', 'blue')" class="sym-btn border border-slate-200 hover:border-silvio-blue text-slate-700 font-semibold text-xs p-2.5 rounded-xl text-left flex items-center space-x-2 transition">
+                                        <span>🛠️</span>
+                                        <span>Sewer / Main Line</span>
+                                    </button>
+                                    <button type="button" onclick="selectSymptom(this, 'Water Heater / Softener / Filtration', '🔥 Tank & Tankless Repair/Install • Hard Texas Water Softeners', 'blue')" class="sym-btn border border-slate-200 hover:border-silvio-blue text-slate-700 font-semibold text-xs p-2.5 rounded-xl text-left flex items-center space-x-2 transition">
+                                        <span>🔥</span>
+                                        <span>Heater / Softener</span>
+                                    </button>
+                                    <button type="button" onclick="selectSymptom(this, 'Gas Piping / Underground Location', '🧭 Certified Gas Pressure Testing & Underground Line Location', 'blue')" class="sym-btn border border-slate-200 hover:border-silvio-blue text-slate-700 font-semibold text-xs p-2.5 rounded-xl text-left flex items-center space-x-2 transition">
+                                        <span>🧭</span>
+                                        <span>Gas Line / Locate</span>
+                                    </button>
+                                    <button type="button" onclick="selectSymptom(this, 'Kitchen / Bath Remodel / Concrete', '🏗️ Turnkey Plumbing Rough-In, Fixture Finish & Concrete Slab Pouring', 'blue')" class="sym-btn border border-slate-200 hover:border-silvio-blue text-slate-700 font-semibold text-xs p-2.5 rounded-xl text-left flex items-center space-x-2 transition">
+                                        <span>🏗️</span>
+                                        <span>Remodel / Concrete</span>
+                                    </button>
+                                    <button type="button" onclick="selectSymptom(this, 'Fixtures / Disposal / Sump Pump', '💧 Faucets, Showers, Disposals & Basement Flood Sump Pumps', 'blue')" class="sym-btn border border-slate-200 hover:border-silvio-blue text-slate-700 font-semibold text-xs p-2.5 rounded-xl text-left flex items-center space-x-2 transition">
+                                        <span>💧</span>
+                                        <span>Fixtures / Disposal</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Dynamic Live Diagnostic Readout Box -->
+                            <div id="diagnosticBox" class="bg-red-50 border border-red-200 rounded-xl p-3 text-xs text-slate-800 flex items-start space-x-2.5 transition-all duration-300">
+                                <span class="animate-pulse text-base">📡</span>
+                                <div>
+                                    <span class="font-bold text-silvio-red uppercase tracking-wider text-[10px] block">Live Dispatch Readout:</span>
+                                    <span id="diagnosticText" class="font-semibold">🚨 Priority 1–2 Hr Dispatch • Hydro-Jet & Leak Radar Ready</span>
+                                </div>
+                            </div>
+
+                            <!-- Inputs -->
+                            <div class="grid grid-cols-2 gap-2.5">
+                                <input type="text" id="triageName" placeholder="Your Name *" class="w-full rounded-xl bg-slate-50 border border-slate-200 px-3.5 py-2.5 text-xs sm:text-sm focus:bg-white focus:outline-none focus:border-silvio-blue">
+                                <input type="tel" id="triagePhone" placeholder="Phone Number *" class="w-full rounded-xl bg-slate-50 border border-slate-200 px-3.5 py-2.5 text-xs sm:text-sm focus:bg-white focus:outline-none focus:border-silvio-blue">
+                            </div>
+
+                            <!-- Shimmer CTA -->
+                            <button type="button" onclick="dispatchRequest('sms')" class="btn-shimmer w-full bg-silvio-red hover:bg-red-700 text-white font-bold text-sm py-3.5 px-4 rounded-xl shadow-lg shadow-red-600/20 flex items-center justify-center space-x-2 transition transform active:scale-95">
+                                <span class="icon-ring">💬</span>
+                                <span>TEXT SILVIO FOR FAST ESTIMATE</span>
+                            </button>
+
+                            <button type="button" onclick="dispatchRequest('email')" class="w-full text-silvio-blue hover:bg-blue-50 font-semibold text-xs py-2 rounded-lg flex items-center justify-center space-x-1.5 transition">
+                                <span>✉️ Or email: silviosplumbing@gmail.com</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- LIVING MARQUEE TICKER -->
+    <div class="bg-silvio-blue text-white py-3 overflow-hidden border-b border-blue-900">
+        <div class="animate-marquee flex items-center space-x-8 text-xs font-bold uppercase tracking-widest">
+            <span>✓ Water Heater & Softener Install</span>
+            <span class="text-amber-400">•</span>
+            <span>✓ 45-Ft Under-Slab Sewer Tunneling</span>
+            <span class="text-amber-400">•</span>
+            <span>✓ Leak & Clog Detection</span>
+            <span class="text-amber-400">•</span>
+            <span>✓ Gas Piping & Underground Location</span>
+            <span class="text-amber-400">•</span>
+            <span>✓ Kitchen & Bathroom Remodels</span>
+            <span class="text-amber-400">•</span>
+            <span>✓ Custom Concrete Work</span>
+            <span class="text-amber-400">•</span>
+            <span>✓ Commercial & New Construction</span>
+            <span class="text-amber-400">•</span>
+            <span>✓ Water Heater & Softener Install</span>
+            <span class="text-amber-400">•</span>
+            <span>✓ 45-Ft Under-Slab Sewer Tunneling</span>
+            <span class="text-amber-400">•</span>
+            <span>✓ Leak & Clog Detection</span>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         SECTION 2: BRIGHT WHITE 11-SERVICE INTERACTIVE MATRIX (Always Visible!)
+         ========================================== -->
+    <section id="services" class="py-14 lg:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="max-w-3xl mb-8">
+                <span class="text-silvio-red font-bold text-xs uppercase tracking-widest block mb-2">Full-Spectrum Licensing</span>
+                <h2 class="font-extrabold text-3xl sm:text-5xl text-slate-900 tracking-tight leading-tight">
+                    Every Plumbing System. <span class="font-serif italic font-normal text-silvio-blue text-4xl sm:text-5xl">Engineered to Last.</span>
+                </h2>
+                <p class="text-slate-600 mt-2 text-sm sm:text-base">
+                    Filter our capabilities below or tap any service card to pre-load a custom quote request.
+                </p>
+            </div>
+
+            <!-- Interactive Pill Filters -->
+            <div class="flex flex-wrap gap-2 mb-8">
+                <button onclick="filterServices('all', this)" class="srv-tab bg-silvio-blue text-white px-4 py-2 rounded-full text-xs font-bold shadow-sm transition">All Services (11)</button>
+                <button onclick="filterServices('lines', this)" class="srv-tab bg-slate-100 hover:bg-blue-50 text-slate-700 px-4 py-2 rounded-full text-xs font-bold transition">Sewer, Water & Gas Lines</button>
+                <button onclick="filterServices('heaters', this)" class="srv-tab bg-slate-100 hover:bg-blue-50 text-slate-700 px-4 py-2 rounded-full text-xs font-bold transition">Heaters, Filters & Fixtures</button>
+                <button onclick="filterServices('commercial', this)" class="srv-tab bg-slate-100 hover:bg-blue-50 text-slate-700 px-4 py-2 rounded-full text-xs font-bold transition">Commercial & New Builds</button>
+            </div>
+
+            <!-- Clean White Cards with Colored Top Borders -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Card 1 -->
+                <div data-cat="lines" class="service-card bg-white rounded-2xl p-6 border border-slate-200 border-t-4 border-t-silvio-red shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-11 h-11 rounded-xl bg-red-50 text-silvio-red flex items-center justify-center text-xl icon-float">🛠️</div>
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-silvio-red bg-red-50 px-2.5 py-1 rounded-full">45ft Tunnel Capable</span>
+                        </div>
+                        <h3 class="font-extrabold text-xl text-slate-900 mb-2">Sewer & Water Line Piping</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-5">Complete water line piping installation, repair, and full under-slab sewer replacements without tearing up your interior floors.</p>
+                    </div>
+                    <a href="#contact" onclick="prefillService('Sewer & Water Line Piping')" class="text-silvio-blue font-bold text-xs uppercase tracking-wider inline-flex items-center group-hover:text-silvio-red transition">
+                        <span>Request Line Quote →</span>
+                    </a>
+                </div>
+
+                <!-- Card 2 -->
+                <div data-cat="heaters" class="service-card bg-white rounded-2xl p-6 border border-slate-200 border-t-4 border-t-silvio-blue shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-11 h-11 rounded-xl bg-blue-50 text-silvio-blue flex items-center justify-center text-xl icon-float">🔥</div>
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-silvio-blue bg-blue-50 px-2.5 py-1 rounded-full">Thermal & Softening</span>
+                        </div>
+                        <h3 class="font-extrabold text-xl text-slate-900 mb-2">Water Heaters & Softeners</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-5">Installation and rapid repair of tank/tankless water heaters and whole-house water softeners engineered for Central Texas water.</p>
+                    </div>
+                    <a href="#contact" onclick="prefillService('Water Heater & Softener Service')" class="text-silvio-blue font-bold text-xs uppercase tracking-wider inline-flex items-center group-hover:text-silvio-red transition">
+                        <span>Book Heater Service →</span>
+                    </a>
+                </div>
+
+                <!-- Card 3 -->
+                <div data-cat="lines" class="service-card bg-white rounded-2xl p-6 border border-slate-200 border-t-4 border-t-silvio-red shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-11 h-11 rounded-xl bg-red-50 text-silvio-red flex items-center justify-center text-xl icon-ring">🚨</div>
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-silvio-red bg-red-50 px-2.5 py-1 rounded-full">Emergency Dispatch</span>
+                        </div>
+                        <h3 class="font-extrabold text-xl text-slate-900 mb-2">Leak & Clog Detection</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-5">Non-invasive electronic leak detection, busted pipe repairs, water pressure restoration, and main drain clearing.</p>
+                    </div>
+                    <a href="#contact" onclick="prefillService('Leak & Clog Detection')" class="text-silvio-blue font-bold text-xs uppercase tracking-wider inline-flex items-center group-hover:text-silvio-red transition">
+                        <span>Dispatch Leak Specialist →</span>
+                    </a>
+                </div>
+
+                <!-- Card 4 -->
+                <div data-cat="lines" class="service-card bg-white rounded-2xl p-6 border border-slate-200 border-t-4 border-t-silvio-blue shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-11 h-11 rounded-xl bg-blue-50 text-silvio-blue flex items-center justify-center text-xl icon-float">🧭</div>
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-silvio-blue bg-blue-50 px-2.5 py-1 rounded-full">Certified Utility</span>
+                        </div>
+                        <h3 class="font-extrabold text-xl text-slate-900 mb-2">Gas Piping & Line Location</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-5">Code-certified gas piping installation, pressure testing, and precision underground water & gas utility locating.</p>
+                    </div>
+                    <a href="#contact" onclick="prefillService('Gas Piping & Line Location')" class="text-silvio-blue font-bold text-xs uppercase tracking-wider inline-flex items-center group-hover:text-silvio-red transition">
+                        <span>Schedule Gas / Locate →</span>
+                    </a>
+                </div>
+
+                <!-- Card 5 -->
+                <div data-cat="heaters" class="service-card bg-white rounded-2xl p-6 border border-slate-200 border-t-4 border-t-silvio-blue shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-11 h-11 rounded-xl bg-blue-50 text-silvio-blue flex items-center justify-center text-xl icon-float">🚰</div>
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-silvio-blue bg-blue-50 px-2.5 py-1 rounded-full">Hardware & Kitchen</span>
+                        </div>
+                        <h3 class="font-extrabold text-xl text-slate-900 mb-2">Fixtures & Garbage Disposals</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-5">Repair, replacement, and installation of faucets, toilets, shower valves, sinks, and high-powered garbage disposals.</p>
+                    </div>
+                    <a href="#contact" onclick="prefillService('Plumbing Fixtures & Disposals')" class="text-silvio-blue font-bold text-xs uppercase tracking-wider inline-flex items-center group-hover:text-silvio-red transition">
+                        <span>Upgrade Fixtures →</span>
+                    </a>
+                </div>
+
+                <!-- Card 6 -->
+                <div data-cat="heaters" class="service-card bg-white rounded-2xl p-6 border border-slate-200 border-t-4 border-t-silvio-red shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-11 h-11 rounded-xl bg-red-50 text-silvio-red flex items-center justify-center text-xl icon-float">💧</div>
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-silvio-red bg-red-50 px-2.5 py-1 rounded-full">Flood Protection</span>
+                        </div>
+                        <h3 class="font-extrabold text-xl text-slate-900 mb-2">Sump Pumps & Filtration</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-5">Keep basements dry during Texas storms with heavy-duty sump pumps, and purify your tap with whole-home water filtration.</p>
+                    </div>
+                    <a href="#contact" onclick="prefillService('Sump Pumps & Water Filtration')" class="text-silvio-blue font-bold text-xs uppercase tracking-wider inline-flex items-center group-hover:text-silvio-red transition">
+                        <span>Get System Quote →</span>
+                    </a>
+                </div>
+
+                <!-- Card 7: Commercial & New Construction Banner -->
+                <div data-cat="commercial" class="service-card sm:col-span-2 lg:col-span-3 bg-gradient-to-r from-blue-50 via-white to-red-50 rounded-3xl p-6 sm:p-8 border-2 border-silvio-blue/20 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm">
+                    <div class="space-y-2 max-w-2xl">
+                        <span class="text-xs font-extrabold uppercase tracking-widest text-silvio-red">Commercial & New Construction</span>
+                        <h3 class="font-extrabold text-2xl sm:text-3xl text-slate-900">
+                            Building From the Ground Up? <span class="font-serif italic font-normal text-silvio-blue">We Rough-In & Finish.</span>
+                        </h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            As shown on Silvio's service fleet: we partner with Austin builders, business owners, and homeowners for complete new construction plumbing, commercial build-outs, and system installations.
+                        </p>
+                    </div>
+                    <a href="tel:5125545855" class="bg-silvio-blue hover:bg-blue-900 text-white font-bold text-sm px-6 py-4 rounded-xl shrink-0 shadow-md transition flex items-center space-x-2">
+                        <span>🏢 Call Commercial Desk</span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 3: INTERACTIVE REMODEL & CONCRETE EXPLORER
+         ========================================== -->
+    <section id="remodels" class="py-14 lg:py-24 bg-slate-50 border-y border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="text-silvio-blue font-bold text-xs uppercase tracking-widest block mb-2">Turnkey Renovations & Civil Work</span>
+                <h2 class="font-extrabold text-3xl sm:text-5xl text-slate-900 tracking-tight">
+                    Remodels & Concrete, <span class="font-serif italic font-normal text-silvio-red">Under One Roof.</span>
+                </h2>
+                <p class="text-slate-600 mt-2 text-sm sm:text-base">
+                    Tap any division below to inspect how Silvio's crew handles the plumbing, structural framing, and concrete pouring together.
+                </p>
+            </div>
+
+            <!-- Interactive Division Switcher -->
+            <div class="bg-white rounded-3xl p-5 sm:p-8 border border-slate-200 shadow-lg">
+                <div class="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 border-b border-slate-200 pb-4 mb-6">
+                    <button type="button" onclick="switchRemodel(0, this)" class="rem-tab bg-silvio-red text-white px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center justify-center space-x-1.5 shadow-sm">
+                        <span>🍳 Kitchen Remodel</span>
+                    </button>
+                    <button type="button" onclick="switchRemodel(1, this)" class="rem-tab bg-slate-100 hover:bg-slate-200 text-slate-700 px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center justify-center space-x-1.5">
+                        <span>🚿 Bathroom Remodel</span>
+                    </button>
+                    <button type="button" onclick="switchRemodel(2, this)" class="rem-tab bg-slate-100 hover:bg-slate-200 text-slate-700 px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center justify-center space-x-1.5">
+                        <span>🏠 Home Remodel</span>
+                    </button>
+                    <button type="button" onclick="switchRemodel(3, this)" class="rem-tab bg-slate-100 hover:bg-slate-200 text-slate-700 px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center justify-center space-x-1.5">
+                        <span>🧱 Concrete Work</span>
+                    </button>
+                </div>
+
+                <!-- Dynamic Spotlight Content -->
+                <div class="grid md:grid-cols-12 gap-8 items-center">
+                    <div class="md:col-span-6 relative rounded-2xl overflow-hidden h-60 sm:h-80 border border-slate-200 bg-slate-100">
+                        <img id="remodelImg" src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=900&q=80" alt="Remodel Preview" class="w-full h-full object-cover transition duration-500">
+                        <span id="remodelBadge" class="absolute top-4 left-4 bg-silvio-red text-white text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-lg shadow">Professional Service</span>
+                    </div>
+                    <div class="md:col-span-6 space-y-4">
+                        <h3 id="remodelTitle" class="font-extrabold text-2xl sm:text-3xl text-slate-900">Chef-Grade Kitchen Remodels</h3>
+                        <p id="remodelDesc" class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                            From relocating kitchen island drains in concrete slabs to running high-BTU commercial range gas lines, custom backsplashes, and luxury sink fixtures.
+                        </p>
+                        <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200 space-y-2" id="remodelSpecs">
+                            <div class="flex items-center text-xs sm:text-sm font-semibold text-slate-800"><span class="text-silvio-red font-bold mr-2">✓</span> Slab Trenching & Island Drain Relocation</div>
+                            <div class="flex items-center text-xs sm:text-sm font-semibold text-slate-800"><span class="text-silvio-red font-bold mr-2">✓</span> Commercial Range Gas Piping & Shut-Offs</div>
+                            <div class="flex items-center text-xs sm:text-sm font-semibold text-slate-800"><span class="text-silvio-red font-bold mr-2">✓</span> Cabinetry, Countertops & Disposals</div>
+                        </div>
+                        <div class="pt-2">
+                            <a href="#contact" id="remodelCta" onclick="prefillService('Kitchen Remodel')" class="inline-flex items-center space-x-2 bg-silvio-blue hover:bg-blue-900 text-white font-bold text-xs sm:text-sm px-6 py-3.5 rounded-xl shadow transition">
+                                <span>Request Remodel Estimate →</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 4: MASTER PLUMBER STANDARD & METRICS
+         ========================================== -->
+    <section id="about" class="py-14 lg:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-7 space-y-5">
+                    <span class="text-silvio-red font-bold text-xs uppercase tracking-widest block">We're Here For You</span>
+                    <h2 class="font-extrabold text-3xl sm:text-5xl text-slate-900 leading-tight">
+                        Technical Expertise Matters. <br>
+                        <span class="font-serif italic font-normal text-silvio-red text-4xl sm:text-6xl">So Does Character.</span>
+                    </h2>
+                    <p class="text-slate-700 font-semibold text-base sm:text-lg">
+                        Solving problems for our customers, doing the job right, and standing by all of our work 100%—it’s just what we do.
+                    </p>
+                    <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                        Every member of Silvio's Plumbing is licensed, respectful, reliable, and committed to treating your home or business with the exact care we expect for our own. From a simple valve repair to a 45-foot sewer tunnel or commercial system installation, our goal never changes: exceptional workmanship and honest pricing from start to finish.
+                    </p>
+
+                    <!-- Always-Visible Operational Proof Metrics -->
+                    <div class="grid grid-cols-3 gap-3 sm:gap-5 pt-4">
+                        <div class="bg-blue-50/70 border border-blue-200 rounded-2xl p-4 text-center">
+                            <div class="font-extrabold text-2xl sm:text-4xl text-silvio-blue">45ft</div>
+                            <div class="text-[11px] font-bold text-slate-600 uppercase mt-1">Under-Slab Tunneling</div>
+                        </div>
+                        <div class="bg-red-50/70 border border-red-200 rounded-2xl p-4 text-center">
+                            <div class="font-extrabold text-2xl sm:text-4xl text-silvio-red">100%</div>
+                            <div class="text-[11px] font-bold text-slate-600 uppercase mt-1">Work Guarantee</div>
+                        </div>
+                        <div class="bg-emerald-50/70 border border-emerald-200 rounded-2xl p-4 text-center">
+                            <div class="font-extrabold text-2xl sm:text-4xl text-emerald-700">2hr</div>
+                            <div class="text-[11px] font-bold text-slate-600 uppercase mt-1">Flood Turnaround</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Clean White Operational Fleet Card -->
+                <div class="lg:col-span-5">
+                    <div class="bg-white rounded-3xl p-7 border-2 border-slate-200 shadow-xl relative overflow-hidden">
+                        <div class="h-2 w-full truck-stripe absolute top-0 left-0"></div>
+                        <div class="flex items-center justify-between mb-6 pt-2">
+                            <div>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-silvio-red block">Verified Credentials</span>
+                                <h3 class="font-extrabold text-2xl text-silvio-blue">Silvio's Plumbing</h3>
+                            </div>
+                            <div class="w-12 h-12 rounded-2xl bg-silvio-blue text-white flex items-center justify-center font-extrabold text-lg border-2 border-silvio-red">
+                                SP
+                            </div>
+                        </div>
+
+                        <div class="space-y-3 text-xs sm:text-sm">
+                            <div class="flex justify-between py-2.5 border-b border-slate-100">
+                                <span class="text-slate-500 font-medium">License Tier</span>
+                                <span class="font-bold text-silvio-blue">Master Plumber</span>
+                            </div>
+                            <div class="flex justify-between py-2.5 border-b border-slate-100">
+                                <span class="text-slate-500 font-medium">Base Location</span>
+                                <span class="font-bold text-slate-900">Pflugerville, TX 78660</span>
+                            </div>
+                            <div class="flex justify-between py-2.5 border-b border-slate-100">
+                                <span class="text-slate-500 font-medium">Coverage</span>
+                                <span class="font-bold text-slate-900">Greater Austin Metro</span>
+                            </div>
+                            <div class="flex justify-between py-2.5 border-b border-slate-100">
+                                <span class="text-slate-500 font-medium">Bilingual Support</span>
+                                <span class="font-bold text-emerald-600">English & Español</span>
+                            </div>
+                            <div class="flex justify-between py-2.5">
+                                <span class="text-slate-500 font-medium">Pricing Guarantee</span>
+                                <span class="font-bold text-silvio-red">Competitive & Upfront</span>
+                            </div>
+                        </div>
+
+                        <a href="tel:5125545855" class="mt-6 w-full bg-slate-900 hover:bg-silvio-blue text-white font-bold text-xs sm:text-sm py-3.5 rounded-xl flex items-center justify-center space-x-2 transition">
+                            <span class="icon-ring">📞</span>
+                            <span>Call Master Plumber: (512) 554-5855</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 5: VERIFIED CUSTOMER PROOF (Dawn W., Sarah T., Matt S.)
+         ========================================== -->
+    <section id="reviews" class="py-14 lg:py-24 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-silvio-red font-bold text-xs uppercase tracking-widest block mb-2">Austin Homeowners Speak</span>
+                <h2 class="font-extrabold text-3xl sm:text-5xl text-slate-900 tracking-tight">
+                    Plumber <span class="font-serif italic font-normal text-silvio-blue">for Life.</span>
+                </h2>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-6">
+                <!-- Dawn W. -->
+                <div class="bg-white rounded-3xl p-7 border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-amber-400 text-sm tracking-widest">★★★★★</span>
+                            <span class="text-[10px] font-bold uppercase bg-blue-50 text-silvio-blue px-2.5 py-1 rounded-full">45' Sewer Tunnel</span>
+                        </div>
+                        <p class="text-slate-700 text-sm leading-relaxed mb-6">
+                            "Silvio is my plumber for life! He is thorough, responsive, fast and cost effective. <strong class="text-silvio-blue">He changed out our whole sewer line which required digging 45' of tunnel under our house.</strong> The project was huge and I'm so thankful for Silvio and his crew. He has done other line work on another house of ours and fixed quite a few busted pipes."
+                        </p>
+                    </div>
+                    <div class="flex items-center space-x-3 pt-4 border-t border-slate-100">
+                        <div class="w-9 h-9 rounded-full bg-silvio-blue text-white font-bold text-xs flex items-center justify-center">DW</div>
+                        <div>
+                            <div class="font-bold text-sm text-slate-900">Dawn W.</div>
+                            <div class="text-[11px] text-slate-500">Multi-Property Austin Client</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sarah T. -->
+                <div class="bg-white rounded-3xl p-7 border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-amber-400 text-sm tracking-widest">★★★★★</span>
+                            <span class="text-[10px] font-bold uppercase bg-red-50 text-silvio-red px-2.5 py-1 rounded-full">2-Hr Flood Rescue</span>
+                        </div>
+                        <p class="text-slate-700 text-sm leading-relaxed mb-6">
+                            "I came home from work one day and <strong class="text-silvio-red">there was a flood in my basement.</strong> A friend told me to call Silvio's Plumbing and I did. <strong class="text-slate-900">Within a couple of hours the problem was fixed.</strong> That’s excellent service in my book."
+                        </p>
+                    </div>
+                    <div class="flex items-center space-x-3 pt-4 border-t border-slate-100">
+                        <div class="w-9 h-9 rounded-full bg-silvio-red text-white font-bold text-xs flex items-center justify-center">ST</div>
+                        <div>
+                            <div class="font-bold text-sm text-slate-900">Sarah T.</div>
+                            <div class="text-[11px] text-slate-500">Emergency Dispatch Client</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Matt S. -->
+                <div class="bg-white rounded-3xl p-7 border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-amber-400 text-sm tracking-widest">★★★★★</span>
+                            <span class="text-[10px] font-bold uppercase bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full">Honest Pricing</span>
+                        </div>
+                        <p class="text-slate-700 text-sm leading-relaxed mb-6">
+                            "I had a problem with the water pressure in my shower and I’d heard good things about Silvio's Plumbing. <strong class="text-emerald-700">Now my shower works amazing and it didn’t cost nearly the amount I thought it would.</strong>"
+                        </p>
+                    </div>
+                    <div class="flex items-center space-x-3 pt-4 border-t border-slate-100">
+                        <div class="w-9 h-9 rounded-full bg-emerald-600 text-white font-bold text-xs flex items-center justify-center">MS</div>
+                        <div>
+                            <div class="font-bold text-sm text-slate-900">Matt S.</div>
+                            <div class="text-[11px] text-slate-500">Residential Repair Client</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 6: BRIGHT WHITE CONTACT & BILINGUAL DISPATCH HUB
+         ========================================== -->
+    <section id="contact" class="py-14 lg:py-24 bg-white border-t border-slate-200 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-10 items-start">
+                
+                <!-- Left Details -->
+                <div class="lg:col-span-5 space-y-5">
+                    <span class="bg-blue-50 text-silvio-blue border border-blue-200 text-xs font-bold px-3 py-1.5 rounded-full inline-block">
+                        English & Spanish Speaking • Hablamos Español
+                    </span>
+                    <h2 class="font-extrabold text-3xl sm:text-5xl text-slate-900 leading-tight">
+                        Let's Fix It <span class="font-serif italic font-normal text-silvio-red">Today.</span>
+                    </h2>
+                    <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                        Find out what Silvio's Plumbing can do for your plumbing or remodeling needs by giving us a call or text. You can also reach us by email anytime.
+                    </p>
+
+                    <div class="space-y-3 pt-2">
+                        <a href="tel:5125545855" class="flex items-center space-x-4 bg-red-50/70 hover:bg-red-100/80 p-4 rounded-2xl border border-red-200 transition">
+                            <div class="w-11 h-11 rounded-xl bg-silvio-red text-white flex items-center justify-center shrink-0 text-lg icon-ring">📞</div>
+                            <div>
+                                <div class="text-[11px] text-silvio-red font-bold uppercase tracking-wider">Direct Phone & SMS</div>
+                                <div class="font-extrabold text-lg text-slate-900">(512) 554-5855</div>
+                            </div>
+                        </a>
+
+                        <a href="mailto:silviosplumbing@gmail.com" class="flex items-center space-x-4 bg-blue-50/70 hover:bg-blue-100/80 p-4 rounded-2xl border border-blue-200 transition">
+                            <div class="w-11 h-11 rounded-xl bg-silvio-blue text-white flex items-center justify-center shrink-0 text-lg">✉️</div>
+                            <div class="overflow-hidden">
+                                <div class="text-[11px] text-silvio-blue font-bold uppercase tracking-wider">Direct Email</div>
+                                <div class="font-bold text-sm sm:text-base text-slate-900 truncate">silviosplumbing@gmail.com</div>
+                            </div>
+                        </a>
+
+                        <div class="flex items-center space-x-4 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                            <div class="w-11 h-11 rounded-xl bg-slate-800 text-white flex items-center justify-center shrink-0 text-lg">📍</div>
+                            <div>
+                                <div class="text-[11px] text-slate-500 font-bold uppercase tracking-wider">Pflugerville / Austin HQ</div>
+                                <div class="font-bold text-xs sm:text-sm text-slate-900">16507 Colwyn Bay Cv, Pflugerville, TX 78660</div>
+                                <div class="text-[11px] text-slate-500">United States</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Clean Form -->
+                <div class="lg:col-span-7">
+                    <form onsubmit="submitFooterForm(event)" class="bg-slate-50 rounded-3xl p-6 sm:p-9 border-2 border-slate-200/90 shadow-lg space-y-4">
+                        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                            <h3 class="font-extrabold text-xl text-slate-900">Request a Free Quote</h3>
+                            <span class="text-xs font-bold text-silvio-blue bg-blue-100 px-3 py-1 rounded-full">Fast Response</span>
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-3.5">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Name *</label>
+                                <input type="text" id="formName" required placeholder="Enter your name" class="w-full rounded-xl bg-white border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:border-silvio-blue">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Phone *</label>
+                                <input type="tel" id="formPhone" required placeholder="(512) 554-5855" class="w-full rounded-xl bg-white border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:border-silvio-blue">
+                            </div>
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-3.5">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Email *</label>
+                                <input type="email" id="formEmail" required placeholder="Enter your email" class="w-full rounded-xl bg-white border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:border-silvio-blue">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Selected Service</label>
+                                <input type="text" id="formService" placeholder="e.g. Sewer Line, Remodel, Leak" class="w-full rounded-xl bg-white border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:border-silvio-blue">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">How can Silvio help?</label>
+                            <textarea id="formMessage" rows="3" placeholder="Describe your plumbing, remodel, or concrete project..." class="w-full rounded-xl bg-white border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:border-silvio-blue"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-shimmer w-full bg-silvio-blue hover:bg-blue-900 text-white font-bold text-sm py-4 rounded-xl shadow-md transition flex items-center justify-center space-x-2">
+                            <span>🚀 SEND ESTIMATE REQUEST</span>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CLEAN FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 text-xs py-8 px-4 text-center border-t-4 border-silvio-red">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div class="font-bold text-white">Silvio's Plumbing • Quality Work. Honest Pricing. Plumbing Done Right.</div>
+            <div>16507 Colwyn Bay Cv, Pflugerville, TX 78660 • (512) 554-5855</div>
+        </div>
+    </footer>
+
+    <!-- PERSISTENT MOBILE BOTTOM BAR -->
+    <div class="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-white/95 backdrop-blur-md border-t border-slate-200 px-3 py-2 shadow-2xl grid grid-cols-2 gap-2.5">
+        <a href="tel:5125545855" class="btn-shimmer bg-silvio-red text-white font-extrabold text-xs py-3 rounded-xl flex items-center justify-center space-x-1.5 shadow">
+            <span class="icon-ring">📞</span>
+            <span>CALL (512) 554-5855</span>
+        </a>
+        <a href="sms:5125545855?body=Hi%20Silvio,%20I%20need%20a%20plumbing%20estimate." class="bg-silvio-blue text-white font-extrabold text-xs py-3 rounded-xl flex items-center justify-center space-x-1.5 shadow">
+            <span>💬</span>
+            <span>TEXT US A PHOTO</span>
+        </a>
+    </div>
+
+    <!-- FAULT-TOLERANT INTERACTIVE SCRIPTS -->
+    <script>
+        try {
+            if (window.lucide) lucide.createIcons();
+        } catch (e) {}
+
+        let selectedIssueText = 'Emergency Leak / Flood / Clog';
+        let currentLang = 'en';
+
+        function selectSymptom(btn, title, readout, theme) {
+            selectedIssueText = title;
+            document.querySelectorAll('.sym-btn').forEach(b => {
+                b.className = 'sym-btn border border-slate-200 hover:border-silvio-blue text-slate-700 font-semibold text-xs p-2.5 rounded-xl text-left flex items-center space-x-2 transition';
+            });
+
+            const borderClass = theme === 'red' ? 'border-silvio-red bg-red-50/70' : 'border-silvio-blue bg-blue-50/70';
+            btn.className = `sym-btn border-2 ${borderClass} text-slate-900 font-bold text-xs p-2.5 rounded-xl text-left flex items-center space-x-2 transition scale-[1.02]`;
+
+            const box = document.getElementById('diagnosticBox');
+            const text = document.getElementById('diagnosticText');
+            text.innerText = readout;
+            box.className = theme === 'red' 
+                ? 'bg-red-50 border border-red-200 rounded-xl p-3 text-xs text-slate-800 flex items-start space-x-2.5 transition-all duration-300'
+                : 'bg-blue-50 border border-blue-200 rounded-xl p-3 text-xs text-slate-800 flex items-start space-x-2.5 transition-all duration-300';
+        }
+
+        const remodelData = [
+            {
+                title: "Chef-Grade Kitchen Remodels",
+                badge: "Professional Service",
+                img: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=900&q=80",
+                desc: "From relocating kitchen island drains in concrete slabs to running high-BTU commercial range gas lines, custom backsplashes, and luxury sink fixtures.",
+                specs: ["Slab Trenching & Island Drain Relocation", "Commercial Range Gas Piping & Shut-Offs", "Cabinetry, Countertops & Disposals"]
+            },
+            {
+                title: "Spa-Inspired Bathroom Remodels",
+                badge: "Reliable Renovations",
+                img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=900&q=80",
+                desc: "Custom walk-in glass showers, freestanding soaking tubs, dual-vanity piping, pressure-balanced shower valves, and complete waterproofing.",
+                specs: ["Walk-In Shower Pan & Drain Engineering", "Freestanding Tub & Dual-Vanity Rough-Ins", "High-Pressure Valve Upgrades"]
+            },
+            {
+                title: "Turnkey Whole-Home Remodels",
+                badge: "Built to Last",
+                img: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=900&q=80",
+                desc: "Stud-out structural renovations, room additions, utility room relocations, and whole-house repiping built to pass every Austin city code inspection.",
+                specs: ["Whole-House PEX / Copper Repiping", "Room Addition Plumbing & Framing", "Full Code Compliance & Permitting"]
+            },
+            {
+                title: "Heavy Civil Concrete Work",
+                badge: "Concrete Division",
+                img: "https://images.unsplash.com/photo-1590674899484-d5640e854abe?auto=format&fit=crop&w=900&q=80",
+                desc: "Custom backyard patios, curved walkways, driveways, and post-plumbing slab restoration formed, poured, and finished cleanly by our crew.",
+                specs: ["Custom Backyard Patios & Flatwork", "Foundation & Slab Trench Restoration", "Reinforced Forming & Smooth Finishing"]
+            }
+        ];
+
+        function switchRemodel(index, btn) {
+            document.querySelectorAll('.rem-tab').forEach(t => {
+                t.className = 'rem-tab bg-slate-100 hover:bg-slate-200 text-slate-700 px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center justify-center space-x-1.5';
+            });
+            btn.className = 'rem-tab bg-silvio-red text-white px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center justify-center space-x-1.5 shadow-sm';
+
+            const d = remodelData[index];
+            document.getElementById('remodelTitle').innerText = d.title;
+            document.getElementById('remodelBadge').innerText = d.badge;
+            document.getElementById('remodelImg').src = d.img;
+            document.getElementById('remodelDesc').innerText = d.desc;
+            document.getElementById('remodelSpecs').innerHTML = d.specs.map(s => 
+                `<div class="flex items-center text-xs sm:text-sm font-semibold text-slate-800"><span class="text-silvio-red font-bold mr-2">✓</span> ${s}</div>`
+            ).join('');
+            document.getElementById('remodelCta').setAttribute('onclick', `prefillService('${d.title}')`);
+        }
+
+        function filterServices(cat, tabBtn) {
+            document.querySelectorAll('.srv-tab').forEach(t => {
+                t.className = 'srv-tab bg-slate-100 hover:bg-blue-50 text-slate-700 px-4 py-2 rounded-full text-xs font-bold transition';
+            });
+            tabBtn.className = 'srv-tab bg-silvio-blue text-white px-4 py-2 rounded-full text-xs font-bold shadow-sm transition';
+
+            document.querySelectorAll('.service-card').forEach(card => {
+                card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
+            });
+        }
+
+        function dispatchRequest(channel) {
+            const name = document.getElementById('triageName').value || 'Homeowner';
+            const phone = document.getElementById('triagePhone').value || 'Not provided';
+            const msg = `Hi Silvio's Plumbing, I'm ${name} (${phone}). I need an estimate for: ${selectedIssueText}.`;
+            if (channel === 'sms') {
+                window.location.href = `sms:5125545855?body=${encodeURIComponent(msg)}`;
+            } else {
+                window.location.href = `mailto:silviosplumbing@gmail.com?subject=${encodeURIComponent('Estimate: ' + selectedIssueText)}&body=${encodeURIComponent(msg)}`;
+            }
+        }
+
+        function prefillService(s) {
+            document.getElementById('formService').value = s;
+        }
+
+        function submitFooterForm(e) {
+            e.preventDefault();
+            const name = document.getElementById('formName').value;
+            const phone = document.getElementById('formPhone').value;
+            const service = document.getElementById('formService').value || 'Plumbing / Remodel';
+            const details = document.getElementById('formMessage').value;
+            window.location.href = `mailto:silviosplumbing@gmail.com?subject=${encodeURIComponent('Quote Request: ' + service)}&body=${encodeURIComponent(`Name: ${name}\nPhone: ${phone}\nService: ${service}\nDetails: ${details}`)}`;
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'es' : 'en';
+            document.getElementById('langText').innerText = currentLang === 'en' ? 'Español (ES)' : 'English (EN)';
+            document.querySelectorAll('[data-en]').forEach(el => {
+                el.innerText = el.getAttribute(`data-${currentLang}`);
+            });
+        }
+    </script>
+</body>
+</html>
